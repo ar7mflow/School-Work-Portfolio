@@ -1,0 +1,239 @@
+PDA Simulator for L = {wcw^R | w ∈ {0,1}*}
+CISC/CMPE 223 - Problem 2
+
+Author: Arham Hassan | 20426387
+
+
+
+
+
+What This Does:
+
+This program basically simulates a Pushdown Automaton (PDA) that recognizes the language L = {wcw^R | w ∈ {0,1}*} where:
+- w = any string made up of 0s and 1s
+- c = the middle marker symbol
+- w^R = w written backwards (reverse)
+
+The PDA uses three states (q0, q1, q2) and works in phases:
+1. Push phase (q0): Push symbols of w onto the stack
+2. Transition: Read 'c' and move to q1
+3. Pop phase (q1): Match and pop w^R from the stack
+4. Accept (q2): If stack is empty (only Z0 remains)
+
+Both the simulator and comprehensive tests included:
+- BFS-based configuration exploration
+- Nondeterminism support (though this PDA is mostly deterministic)
+- Test suite with accept/reject cases
+
+
+-------------------------------------------------------------------------------------
+
+
+How to Run:
+
+Option 1: Just Run It
+bash
+python "A2 Question2 Code.py"
+
+
+Expected output:
+
+======================================================================
+Running Test Suite...
+======================================================================
+✓ 'c              ' -> ACCEPT (expected ACCEPT) | Empty w
+✓ '0c0            ' -> ACCEPT (expected ACCEPT) | w = 0
+✓ '01c10          ' -> ACCEPT (expected ACCEPT) | w = 01
+... (more tests)
+======================================================================
+Results: 26 passed, 0 failed out of 26 tests
+======================================================================
+
+✓ All tests passed!
+
+======================================================================
+Interactive Mode - PDA Simulator
+Language: L = {wcw^R | w ∈ {0,1}*}
+Type 'quit' to exit
+======================================================================
+
+Enter string to test:
+
+
+Option 2: Use It in Your Own Code
+python
+from "A2 Question2 Code" import PDASimulator
+
+pda = PDASimulator()
+result = pda.simulate("101c101")
+print(result)  # Output: True (ACCEPTED)
+
+
+Option 3: Interactive Python Shell
+bash
+python -i "A2 Question2 Code.py"
+
+Then in the shell:
+python
+>>> pda = PDASimulator()
+>>> pda.simulate("0c0")
+True
+>>> pda.simulate("01c01")
+False
+
+
+
+-------------------------------------------------------------------------------------
+
+
+Input Format:
+
+The simulator takes a single string argument:
+python
+pda.simulate(input_string)
+
+
+- input_string: A string containing only characters from {0, 1, c}
+
+Valid examples:
+python
+pda.simulate("c")           # Empty w, accepts
+pda.simulate("0c0")         # w = 0, accepts
+pda.simulate("01c10")       # w = 01, accepts
+pda.simulate("110c011")     # w = 110, accepts
+pda.simulate("101c101")     # w = 101 (palindrome), accepts
+
+
+Invalid examples (will reject):
+python
+pda.simulate("")            # Empty string (no c)
+pda.simulate("01")          # No c marker
+pda.simulate("01c01")       # Not reversed (should be 01c10)
+pda.simulate("0c1")         # Symbol mismatch
+pda.simulate("abc")         # Invalid characters
+
+
+
+-------------------------------------------------------------------------------------
+
+
+
+Formal PDA Specification:
+
+M = (Q, Σ, Γ, δ, q0, F) where:
+
+Q = {q0, q1, q2}
+Σ = {0, 1, c}
+Γ = {0, 1, Z0}
+q0 = q0 (start state)
+F = {q2} (accept state)
+
+Transition Function δ:
+
+Phase 1 (q0): Push w onto stack
+- (q0, 0, Z0) → (q0, 0Z0)
+- (q0, 1, Z0) → (q0, 1Z0)
+- (q0, 0, 0) → (q0, 00)
+- (q0, 0, 1) → (q0, 01)
+- (q0, 1, 0) → (q0, 10)
+- (q0, 1, 1) → (q0, 11)
+
+Phase 2 (q0→q1): Read c
+- (q0, c, Z0) → (q1, Z0)
+- (q0, c, 0) → (q1, 0)
+- (q0, c, 1) → (q1, 1)
+
+Phase 3 (q1): Pop and match w^R
+- (q1, 0, 0) → (q1, ε)
+- (q1, 1, 1) → (q1, ε)
+
+Phase 4 (q1→q2): Accept if stack empty
+- (q1, ε, Z0) → (q2, Z0)
+
+
+
+-------------------------------------------------------------------------------------
+
+
+
+How It Works (The Algorithm):
+
+1. We start in q0 with input string and stack containing Z0
+2. For each symbol in the first half (before c):
+   - Push it onto the stack (building w in reverse order)
+3. And when 'c' is read:
+   - Transition to q1 (start matching phase)
+4. for each symbol after 'c':
+   - Pop from stack and check if it matches
+   - If mismatch: reject (no valid transition)
+5. After reading all input:
+   - If in q1 and stack is empty (only Z0 left): move to q2 and accept
+   - Otherwise: reject
+
+And last but not least! Uses BFS to explore configurations: (state, remaining_input, stack)
+
+
+
+-------------------------------------------------------------------------------------
+
+
+ Edge Cases We Handle
+
+| Case                | Input        | Output | Notes
+
+| Empty w             | c            | ACCEPT | w = ε, so w^R = ε
+| Single symbol       | 0c0          | ACCEPT | w = 0
+| Palindrome          | 101c101      | ACCEPT | w = w^R (happens to be palindrome)
+| Non-palindrome      | 110c011      | ACCEPT | w = 110, w^R = 011
+| Empty string        |              | REJECT | No c marker
+| No c                | 01           | REJECT | Missing delimiter
+| Two c's             | cc           | REJECT | Invalid format
+| Missing left half   | c0           | REJECT | w is empty but w^R isn't
+| Missing right half  | 0c           | REJECT | w exists but w^R is missing
+| Wrong order         | 01c01        | REJECT | Not reversed
+| Symbol mismatch     | 0c1          | REJECT | Different symbols
+| Invalid chars       | abc          | REJECT | Not in {0,1,c}
+
+
+
+-------------------------------------------------------------------------------------
+
+
+
+ Assumptions
+
+- Input contains only {0, 1, c}: We will check for invalid characters and reject. dw.
+- Exactly one 'c': We don't explicitly validate this, but multiple c's will cause rejection due to no valid transitions.
+- BFS avoids infinite loops: We use a visited set to track (state, remaining_input, stack) configurations.
+- Stack bottom marker: Z0 always stays at the bottom of the stack.
+
+
+
+-------------------------------------------------------------------------------------
+
+
+
+ Known Limitations
+
+- Performance on long strings: BFS explores many configurations; strings with length > 100 might be slow.
+- No error messages: Just returns True/False, doesn't tell you why it rejected.
+- Stack depth: Python's list-based stack can handle large w, but memory might be an issue for extremely long strings.
+- Nondeterminism overhead: Even though this PDA is mostly deterministic, the BFS framework supports full nondeterminism.
+
+
+
+-------------------------------------------------------------------------------------
+
+
+
+If you may ask, why BFS Instead of DFS?
+
+BFS (Breadth-First Search):
+- Explores all possible paths evenly
+- Finds acceptance as soon as it exists
+- Better for PDAs with epsilon transitions
+
+DFS (Depth-First Search):
+- Can get stuck in infinite epsilon loops
+- Might explore very deep rejected paths first
+- Also jarder to debug

@@ -1,0 +1,4 @@
+Student Name: Arham Hassan
+Student Number: 20426387
+NetID: 23cr8
+Contribution: Completed all domain and problem modelling work for Assignment 2 (domain.pddl, p01.pddl, p02.pddl, p03.pddl, p04.pddl).

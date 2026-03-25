@@ -1,0 +1,195 @@
+% Arham Hassan | 20426387 | CISC 360 | Assignment 3
+% Some facts we should declare:
+
+% Person -> Food
+likes(mary, pizza).
+likes(mary, salad).
+likes(john, burger).
+likes(alex, pizza).
+likes(alex, pasta).
+likes(lucy, sushi).
+
+% Food -> Ingredient
+contains(pizza, cheese).
+contains(pizza, tomato).
+contains(burger, meat).
+contains(pasta, tomato).
+contains(salad, lettuce).
+contains(sushi, fish).
+
+% Person -> Activity
+enjoys(mary, swimming).
+enjoys(mary, gaming).    
+enjoys(john, hiking).
+enjoys(alex, gaming).
+enjoys(lucy, dancing).
+
+% Q1: A person likes tomato if they like some food that contains tomato.
+likes_tomato(Person) :-
+    likes(Person, Food),
+    contains(Food, tomato).
+
+% Q2: A person's favorite ingredient is one that shows up in a food they like.
+favorite_ingredient(Person, Ingredient) :-
+    likes(Person, Food),
+    contains(Food, Ingredient).
+
+% Q3: Two different people are friends if they like the same food.
+friends(Person1, Person2) :-
+    Person1 \= Person2,
+    likes(Person1, Food),
+    likes(Person2, Food).
+
+% Q4: Two different people are compatible if they both like the same food and enjoy the same activity.
+compatible(Person1, Person2) :-
+    Person1 \= Person2,
+    likes(Person1, Food),
+    likes(Person2, Food),
+    enjoys(Person1, Activity),
+    enjoys(Person2, Activity).
+
+% Q6: Flight network and recursive travel rule.
+flight(paris, london).
+flight(london, berlin).
+flight(berlin, rome).
+flight(paris, madrid).
+flight(madrid, rome).
+
+travel(X, Y) :-
+    flight(X, Y).
+travel(X, Y) :-
+    flight(X, Z),
+    travel(Z, Y).
+
+% -------------------------
+% Tested queries + outputs
+% -------------------------
+
+% ?- likes_tomato(mary).
+% true.
+
+% ?- likes_tomato(john).
+% false.
+
+% ?- likes_tomato(alex).
+% true.
+
+% ?- favorite_ingredient(alex, X).
+% X = cheese ;
+% X = tomato ;
+% X = tomato.
+
+% ?- friends(mary, alex).
+% true.
+
+% ?- friends(john, alex).
+% false.
+
+% ?- compatible(mary, alex).
+% true.
+
+% ?- travel(paris, rome).
+% true.
+
+% ?- travel(paris, X).
+% X = london ;
+% X = berlin ;
+% X = rome ;
+% X = madrid ;
+% X = rome.
+
+% -------------------------
+% Q5: Trace/backtracking explanation -- ?- trace, likes_tomato(X).
+% -------------------------
+%
+%   Call: likes_tomato(X)              -- Prolog begins solving the problem 
+%     Call: likes(X, Food)             -- tries first likes/2 fact
+%     Exit: likes(mary, pizza)         -- X=mary, Food=pizza matched
+%     Call: contains(pizza, tomato)    -- does pizza contain tomato?
+%     Exit: contains(pizza, tomato)    -- yes
+%   Exit: likes_tomato(mary)           -- X = mary
+%
+%   Redo: likes_tomato(X)              -- user presses ; for more answers
+%     Redo: likes(X, Food)             -- backtracks; tries likes(mary, salad)
+%     Exit: likes(mary, salad)         -- Food=salad
+%     Call: contains(salad, tomato)    -- does the salad contain tomato?
+%     Fail: contains(salad, tomato)    -- no; backtrack
+%     Redo: likes(X, Food)             -- then likes(john, burger)
+%     Exit: likes(john, burger)
+%     Call: contains(burger, tomato)
+%     Fail: contains(burger, tomato)   -- no; backtrack
+%     Redo: likes(X, Food)             -- tries likes(alex, pizza)
+%     Exit: likes(alex, pizza)         -- X=alex, Food=pizza
+%     Call: contains(pizza, tomato)
+%     Exit: contains(pizza, tomato)    -- yes
+%   Exit: likes_tomato(alex)           -- X = alex  (found via pizza)
+%
+%   Redo: likes_tomato(X)              -- user presses ; again
+%     Redo: likes(X, Food)             -- then tries likes(alex, pasta)
+%     Exit: likes(alex, pasta)         -- X=alex, Food=pasta
+%     Call: contains(pasta, tomato)
+%     Exit: contains(pasta, tomato)    -- yes
+%   Exit: likes_tomato(alex)           -- X = alex  (found again because of pasta)
+%
+%   Redo: likes_tomato(X)              -- user presses ; again
+%     Redo: likes(X, Food)             -- tries likes(lucy, sushi)
+%     Exit: likes(lucy, sushi)
+%     Call: contains(sushi, tomato)
+%     Fail: contains(sushi, tomato)    -- no
+%     Fail: likes(X, Food)             -- no more likes/2 facts
+%   Fail: likes_tomato(X)              -- false; search ends
+%
+% How backtracking found mary and alex:
+%   Prolog tried every likes/2 fact one by one in order, each time checking
+%   whether the matching food contains tomato. mary matched first (through pizza).
+%   john and mary's salad failed. alex matched twice (pizza and pasta both contain tomato).
+%  Why it stopped after those:
+%   After lucy's sushi failed the tomato check, there are no more likes/2 facts to try,
+%   so the search space is exhausted and Prolog reports false.
+%
+% -------------------------
+% Q6: Trace explanation -- ?- trace, travel(paris, rome).
+% -------------------------
+%
+% Step 1 — try first clause: travel(paris, rome) :- flight(paris, rome).
+%   Call: flight(paris, rome)          -- is there a direct flight from paris->rome?
+%   Fail: flight(paris, rome)          -- no direct flight; backtrack to second clause.
+%
+% Step 2 — try second clause: travel(paris, rome) :- flight(paris, Z), travel(Z, rome).
+%   Call: flight(paris, Z)
+%   Exit: flight(paris, london)        -- Z = london (first match)
+%   Call: travel(london, rome)         -- recursive call
+%     Call: flight(london, rome)       -- direct flight from london->rome?
+%     Fail: flight(london, rome)       -- no; try recursive clause
+%     Call: flight(london, Z2)
+%     Exit: flight(london, berlin)     -- Z2 = berlin
+%     Call: travel(berlin, rome)       -- recursive call
+%       Call: flight(berlin, rome)     -- direct flight from berlin->rome?
+%       Exit: flight(berlin, rome)     -- yes
+%     Exit: travel(berlin, rome)       -- succeeds
+%   Exit: travel(london, rome)         -- succeeds
+% Exit: travel(paris, rome)            -- TRUE  (Route 1: paris -> london -> berlin -> rome)
+%
+% On Redo (; pressed to find second route):
+%   Redo: travel(berlin, rome)         -- no more flight/2 options from berlin; fail
+%   Redo: flight(london, Z2)           -- no options after berlin so also; fail
+%   Redo: travel(london, rome)         -- exhausted; fail
+%   Redo: flight(paris, Z)             -- next match:
+%   Exit: flight(paris, madrid)        -- Z = madrid
+%   Call: travel(madrid, rome)         -- recursive call
+%     Call: flight(madrid, rome)       -- direct flight madrid->rome?
+%     Exit: flight(madrid, rome)       -- yes
+%   Exit: travel(madrid, rome)         -- succeeds
+% Exit: travel(paris, rome)            -- TRUE  (Route 2: paris -> madrid -> rome)
+%
+% The sequence of recursive calls: travel(paris,rome) -> travel(london,rome) -> travel(berlin,rome)
+%   for Route 1 (depth 3). Route 2 is shallower: travel(paris,rome) -> travel(madrid,rome).
+%
+%
+% And then backtracking occurs when flight/2 has no matching fact (e.g., direct paris->rome fails)
+%   or when a sub-goal is exhausted and control returns to the nearest choice point.
+%
+%
+% We had two routes: Prolog found Route 1 via deep recursion through london and berlin.
+%   On redo it backtracked to the paris choice point and discovered the shorter
+%   route through madrid.

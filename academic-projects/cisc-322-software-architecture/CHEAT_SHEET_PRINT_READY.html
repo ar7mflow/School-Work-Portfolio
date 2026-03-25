@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CISC 322 Quiz 1 — Cheat Sheet (2 Sides, Letter)</title>
+<style>
+  @page { size: letter; margin: 0.25in 0.25in 0.2in 0.25in; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, Helvetica, sans-serif; font-size: 6.4pt; line-height: 1.18; color: #111; }
+  .page { width: 8in; min-height: 10.5in; max-height: 10.5in; overflow: hidden; padding: 0.1in; page-break-after: always; }
+
+  h1 { font-size: 9pt; text-align: center; margin-bottom: 2px; color: #1a237e; border-bottom: 1.5px solid #1a237e; padding-bottom: 1px; }
+  h2 { font-size: 7pt; color: #fff; background: #1a237e; padding: 1px 4px; margin: 2px 0 1px 0; border-radius: 2px; letter-spacing: 0.3px; }
+  h3 { font-size: 6.5pt; color: #b71c1c; margin: 1.5px 0 0.5px 0; font-weight: 800; }
+  h4 { font-size: 6.2pt; color: #1565c0; margin: 1px 0 0 0; font-weight: 700; }
+
+  .cols2 { column-count: 2; column-gap: 8px; }
+  .cols3 { column-count: 3; column-gap: 6px; }
+
+  table { width: 100%; border-collapse: collapse; margin: 1px 0; font-size: 6pt; }
+  th { background: #e8eaf6; color: #1a237e; font-size: 5.8pt; padding: 1px 2px; text-align: left; border: 0.5px solid #9fa8da; font-weight: 700; }
+  td { padding: 1px 2px; border: 0.5px solid #c5cae9; vertical-align: top; }
+  tr:nth-child(even) { background: #f5f5f5; }
+
+  .highlight { background: #fff9c4; padding: 0 1px; font-weight: 700; }
+  .red { color: #b71c1c; font-weight: 700; }
+  .green { color: #1b5e20; font-weight: 700; }
+  .blue { color: #0d47a1; font-weight: 700; }
+  .trap { background: #ffcdd2; padding: 0.5px 2px; border-radius: 1px; font-weight: 700; display: inline-block; margin: 0.5px 0; font-size: 5.8pt; }
+  .key { background: #c8e6c9; padding: 0.5px 2px; border-radius: 1px; font-weight: 700; display: inline-block; margin: 0.5px 0; font-size: 5.8pt; }
+
+  ul { padding-left: 8px; margin: 0.5px 0; }
+  li { margin: 0; }
+
+  .compact-def { margin: 0.5px 0; }
+  .compact-def b { color: #1a237e; }
+
+  .box { border: 1px solid #1a237e; padding: 2px 3px; margin: 1.5px 0; border-radius: 2px; background: #e8eaf6; }
+  .box-red { border: 1px solid #b71c1c; padding: 2px 3px; margin: 1.5px 0; border-radius: 2px; background: #ffebee; }
+  .box-green { border: 1px solid #1b5e20; padding: 2px 3px; margin: 1.5px 0; border-radius: 2px; background: #e8f5e9; }
+
+  .separator { border-top: 1px dashed #9fa8da; margin: 2px 0; }
+
+  .note { font-size: 5.5pt; color: #616161; font-style: italic; }
+  .break-inside-avoid { break-inside: avoid; }
+
+  .mini-table td, .mini-table th { padding: 0.5px 2px; font-size: 5.8pt; }
+
+  pre { font-family: 'Consolas', monospace; font-size: 5.8pt; background: #f5f5f5; padding: 1px 3px; border-radius: 1px; margin: 1px 0; white-space: pre-wrap; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- SIDE 1: Q1 SHORT ANSWERS (NFRs, T/F, Views, Definitions, Styles) -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="page">
+<h1>CISC 322 QUIZ 1 — CHEAT SHEET ★ SIDE 1: SHORT ANSWERS (Q1 = 50 marks: NFRs 15 + T/F 15 + Views 15 + Styles 5)</h1>
+
+<!-- TIME MANAGEMENT BOX -->
+<div class="box" style="text-align:center; padding:2px; margin-bottom:2px; background:#fff3e0; border-color:#e65100;">
+<b style="font-size:7pt; color:#e65100;">⏱ TIME: Q1 40-50min | Q2 60-70min</b><br>
+<span style="font-size:5.8pt;">Q1.1 NFRs 8min · Q1.2 T/F 10min · Q1.3 Views 5min · Q1.4 Styles 5min | Q2.1 NFRs 5min · Q2.2 Styles 8min · Q2.3 Seq 15min · Q2.4 Boxes 15min</span>
+</div>
+
+<div class="cols2">
+
+<!-- ─── NFRs ─── -->
+<div class="break-inside-avoid">
+<h2>A. NON-FUNCTIONAL REQUIREMENTS — Q1.1 = 15 marks (100% will appear)</h2>
+<p><b>FR</b> = WHAT system does &nbsp;|&nbsp; <b>NFR</b> = HOW WELL it does it (quality attributes that shape architecture)</p>
+<p class="note" style="color:#b71c1c;"><b>Q1.1 rubric:</b> /3 identify NFR type · /4 two approaches to address it · /4 which approach works best + why · /4 why can't focus on all NFRs equally</p>
+
+<h3>Performance NFRs</h3>
+<table class="mini-table">
+<tr><th>NFR</th><th>Meaning</th><th>Good Example</th></tr>
+<tr><td><b>Response Time</b></td><td>Speed of ONE response</td><td>"Page &lt;2s on 10Mbps" "Code completion &lt;200ms"</td></tr>
+<tr><td><b>Throughput</b></td><td>Work/time unit</td><td>"1000 tx/sec <b>avg</b>, 5000 <b>peak</b>"</td></tr>
+<tr><td><b>Deadline</b></td><td>Hard time (real-time)</td><td>"Trade within 100ms"</td></tr>
+<tr><td><b>Request Load</b></td><td>Concurrent users</td><td>"10,000 simultaneous users"</td></tr>
+</table>
+<span class="trap">TRAP: Throughput MUST specify avg vs peak — "$5K/sec for Amazon" incomplete (Black Friday = 10-100× spike)!</span>
+
+<h3>Scalability: Scale Up vs Scale Out</h3>
+<table class="mini-table">
+<tr><th>Type</th><th>How</th><th>When Best</th></tr>
+<tr><td><b>Scale Up</b></td><td>Bigger server</td><td>Moderate load, simpler</td></tr>
+<tr><td><b>Scale Out</b></td><td>More servers</td><td><b>Massive loads (ChatGPT) — better approach</b></td></tr>
+</table>
+
+<h3>Security NFRs (4 types — DON'T confuse!)</h3>
+<table class="mini-table">
+<tr><th>NFR</th><th>Meaning</th><th>Example</th></tr>
+<tr><td><b>Authentication</b></td><td>WHO you are</td><td>"User login with password/2FA"</td></tr>
+<tr><td><b>Authorization</b></td><td>WHAT you can do</td><td>"Only admins delete files"</td></tr>
+<tr><td><b>Encryption</b></td><td>Data protection</td><td>"HTTPS/TLS for all connections"</td></tr>
+<tr><td><b>Non-repudiation</b></td><td>Can't deny action</td><td>"Order = binding commitment"</td></tr>
+</table>
+<span class="trap">TRAP: Authentication ≠ Authorization — DIFFERENT. Both needed.</span>
+
+<h3>Other Key NFRs</h3>
+<p><b>Availability:</b> 99.9% = 8.76 hrs/yr down · 99.99% = 52.6 min/yr · 99.999% = 5.26 min/yr<br>
+<b>Portability:</b> "Windows, Mac, Linux, iOS, Android" (list platforms)<br>
+<b>Usability:</b> "New user creates doc in &lt;1 min" (measurable!)<br>
+<b>Modifiability:</b> "Add new file format in 2 days" (concrete!)</p>
+
+<div class="box">
+<b>NFR QUALITY RULES:</b> Must be (1) verifiable, (2) traceable, (3) ranked by importance, (4) ranked by stability. Be <b>SPECIFIC + MEASURABLE</b> + tied to the scenario. ❌"Be fast" → ✅"Load &lt;2s on 10Mbps"
+</div>
+</div>
+
+<!-- ─── VIEWS ─── -->
+<div class="break-inside-avoid">
+<h2>B. ARCHITECTURAL VIEWS — Q1.3 = 15 marks (/3 each, 5 statements, no explanation needed)</h2>
+<table>
+<tr><th>View</th><th>What It Shows</th><th>Keywords → This View</th></tr>
+<tr><td><b>Functional</b></td><td>Components, responsibilities, interactions, dependencies</td><td>"depends on", "shielding", "component should not directly…", subsystem roles</td></tr>
+<tr><td><b>Information</b></td><td>Static data structures, data flow, data constraints</td><td>"valid phone #", "data format", "schema", "database structure"</td></tr>
+<tr><td><b>Concurrency</b></td><td>Concurrent processes, threads, synchronization</td><td>"async", "threads", "parallel", "synchronization", "semaphore"</td></tr>
+<tr><td><b>Development</b></td><td>Code organization, build tools, testing</td><td>"Git", "Cucumber", "testing tool", "coding convention", "file naming", "header files"</td></tr>
+<tr><td><b>Deployment</b></td><td>Physical machines, network, where things run</td><td>"different machine", "server", "3 tiers", "hosted on", "network topology"</td></tr>
+<tr><td><b>Operational</b></td><td>Runtime mgmt, upgrades, monitoring</td><td>"graceful restart", "release strategy", "KPI", "weekly dump", "monitoring"</td></tr>
+</table>
+
+<h4>Past Exam Matches (W2023)</h4>
+<table class="mini-table">
+<tr><td>nginx graceful restart → <b>Operational</b></td><td>Valid telephone # → <b>Information</b></td></tr>
+<tr><td>Cucumber testing → <b>Development</b></td><td>DB on diff machine → <b>Deployment</b></td></tr>
+<tr><td>GUI shouldn't depend on DB → <b>Functional</b></td><td>C++ header/impl files → <b>Development</b></td></tr>
+<tr><td>Weekly encrypted data dump → <b>Operational</b></td><td>Coding brace convention → <b>Development</b></td></tr>
+</table>
+
+<div class="box">
+<span class="red">KEY:</span> Perspectives crosscut views. NFRs described by perspectives. Need ALL 3 of Functional + Information + Concurrency for "software structure" — they're COMPLEMENTARY, not alternatives.
+</div>
+</div>
+
+<!-- ─── TRUE/FALSE PATTERNS ─── -->
+<div class="break-inside-avoid">
+<h2>C. TRUE/FALSE PATTERNS — Q1.2 = 15 marks (/1 T/F + /2 why)</h2>
+<table>
+<tr><th style="width:48%">Statement</th><th style="width:7%">Ans</th><th>Key Reason (write 2-3 sentences)</th></tr>
+<tr><td>"$5K/sec throughput for Amazon"</td><td class="red">F</td><td>Doesn't specify avg vs peak (Black Friday spike!)</td></tr>
+<tr><td>"Pub-sub: unaware of identities = opposite of OO"</td><td class="green">T</td><td>Pub-sub uses event bus; OO requires direct reference</td></tr>
+<tr><td>"Environment = tech + non-tech"</td><td class="green">T</td><td>Cloud/HW/OS + policies/regulations/biz</td></tr>
+<tr><td>"One of Func/Info/Concur suffices"</td><td class="red">F</td><td>Need ALL 3 — complementary, each unique info</td></tr>
+<tr><td>"3 layers, 1 tier possible"</td><td class="green">T</td><td>Layer=LOGICAL, Tier=PHYSICAL. All on 1 machine=valid</td></tr>
+<tr><td>"Conceptual arch from source code"</td><td class="red">F</td><td>Conceptual=docs/mental. CONCRETE=source code</td></tr>
+<tr><td>"Controller receives msgs, calls others in order"</td><td class="green">T</td><td>Exactly what controller does</td></tr>
+<tr><td>"nginx has C++ classes Master, Worker"</td><td class="red">F</td><td>nginx is C — conceptual names, not literal classes</td></tr>
+<tr><td>"MVC is architectural style"</td><td class="red">F</td><td>MVC = DESIGN PATTERN in presentation LAYER</td></tr>
+</table>
+<p class="note"><b>Pattern:</b> Most FALSE answers involve: incomplete specs, mixing abstraction levels, confusing conceptual≠concrete, overgeneralization</p>
+</div>
+
+<!-- ─── KEY DEFINITIONS (CONDENSED) ─── -->
+<div class="break-inside-avoid">
+<h2>D. KEY DEFINITIONS</h2>
+
+<h3>Architecture vs Design (F2018 asked)</h3>
+<table class="mini-table">
+<tr><th>Architecture</th><th>Design</th></tr>
+<tr><td>High-level, components</td><td>Low-level, classes/methods</td></tr>
+<tr><td>NFRs (quality)</td><td>FRs (functional)</td></tr>
+<tr><td>Hard to change</td><td>Easier to change</td></tr>
+</table>
+
+<h3>Conceptual vs Concrete</h3>
+<table class="mini-table">
+<tr><th>Conceptual</th><th>Concrete</th></tr>
+<tr><td>Mental model (docs)</td><td>Actual code</td></tr>
+<tr><td>Essential relations</td><td>ALL relations</td></tr>
+</table>
+<p><b>Why mismatch?</b> Missing docs, efficiency shortcuts, code in wrong places</p>
+
+<h3>Critical Distinctions</h3>
+<p><b>Layer</b> = LOGICAL. <b>Tier</b> = PHYSICAL. 3 layers on 1 tier = VALID.<br>
+<b>Stakeholder</b> ⊃ <b>User</b>. All users are stakeholders ≠ vice versa.<br>
+<b>SW Arch Def:</b> "Structure(s) of system: components, externally visible properties, relationships"<br>
+<b>Why arch matters:</b> Communication, documentation of decisions, reusable abstraction<br>
+<b>Conway's Law:</b> System structure mirrors dev org structure</p>
+</div>
+
+<!-- ─── STYLE SELECTION GUIDE ─── -->
+<div class="break-inside-avoid">
+<h2>E. STYLE SELECTION — Q1.4 = 5 marks (/0.5 yes-no + /2 why)</h2>
+
+<h3>Decision Tree (use these keywords to match)</h3>
+<p><b>Complex central data + many operations → Repository</b> (IDE, compiler, graphical editor)<br>
+<b>Sequential transformations → Pipe & Filter</b> (Unix pipeline, video processing)<br>
+<b>Web/network access → Client-Server</b> (+ Layered for logic tiers)<br>
+<b>Events/notifications/plugins → Pub-Sub</b> (NOT for regular CRUD!)<br>
+<b>No central authority → Peer-to-Peer</b> (file sharing, blockchain)</p>
+
+<table class="mini-table">
+<tr><th>Scenario Hint</th><th>Style(s)</th><th>Why NOT others</th></tr>
+<tr><td>Web app, CRUD, users</td><td>C/S + Layered</td><td>NOT Repo (overkill for simple CRUD)</td></tr>
+<tr><td>IDE, AST, refactoring</td><td>C/S + Repository</td><td>Complex data model needs central store</td></tr>
+<tr><td>Data pipeline, filters</td><td>Pipe & Filter</td><td>Independent transforms, no shared state</td></tr>
+<tr><td>Notifications, dynamic subscribers</td><td>Pub-Sub</td><td>NOT for on-demand queries (need event-driven)</td></tr>
+<tr><td>Compiler</td><td>Repo + Pipeline</td><td>HYBRID: Symbol table (repo) + passes (pipeline)</td></tr>
+</table>
+
+<div class="box-red">
+<b>W2023 Lawn Care:</b> Repository=NO (overkill for simple CRUD with CEO manually entering, employees just reading). Pub-Sub=NOT main system (regular schedule consultation = on-demand, NOT event-driven). Could use Pub-Sub for notifications about job changes.
+</div>
+</div>
+
+<!-- ─── UML FOR EXAM ─── -->
+<div class="break-inside-avoid">
+<h2>F. UML BASICS (for Q2.3 Sequence Diagram)</h2>
+<p><b>Sequence Diagram:</b> Actor (stick figure, LEFT, OUTSIDE system) · Objects (rectangles) · Lifeline (dashed ┃) · Activation box (processing time)<br>
+<b>──▶</b> = sync call (filled head, waits) · <b>──></b> = async (open head) · <b>◁──</b> = return (dashed)<br>
+<b>alt</b> = if/else · <b>loop</b> = repeat · Time flows TOP→DOWN</p>
+<p class="note">1 seq diagram = 1 use case. Activity diagram = flowchart. State diagram = 1 object across many use cases.</p>
+</div>
+
+<!-- ─── EXAM SCORING PATTERNS ─── -->
+<div class="break-inside-avoid">
+<h2>G. EXAM SCORING PATTERNS (MEMORIZE THESE)</h2>
+
+<h3>NFR Answer Formula (15 marks → /3 type + /4 approaches + /4 best + /4 why not all)</h3>
+<table class="mini-table">
+<tr><th>Component</th><th>Template</th></tr>
+<tr><td><b>/3 Identify</b></td><td>"This is a [PERFORMANCE/SCALABILITY/SECURITY] NFR"</td></tr>
+<tr><td><b>/4 Approaches</b></td><td>"Approach 1: [SPECIFIC TECH]. Approach 2: [DIFFERENT TECH]"</td></tr>
+<tr><td><b>/4 Best</b></td><td>"Approach [X] works best because [MEASURABLE BENEFIT for THIS scenario]"</td></tr>
+<tr><td><b>/4 Tradeoff</b></td><td>"Can't focus equally because (1) Cost (2) NFRs contradict (ex: encryption↑→speed↓)"</td></tr>
+</table>
+
+<h3>Views Answer Formula (15 marks → /3 each statement, NO explanation needed)</h3>
+<p><b>KEYWORDS → VIEW INSTANT MATCH:</b></p>
+<p><b>Functional:</b> "depends on", "shielding", "component shouldn't directly…", subsystem roles<br>
+<b>Information:</b> "valid format", "data schema", "phone #", "database structure"<br>
+<b>Concurrency:</b> "async", "threads", "parallel", "semaphore", "lock"<br>
+<b>Development:</b> "Git", "testing tool", "coding convention", "header files", "build"<br>
+<b>Deployment:</b> "different machine", "3 tiers", "network", "hosted on"<br>
+<b>Operational:</b> "graceful restart", "monitoring", "KPI", "upgrade", "backup"</p>
+
+<h3>True/False Grading (/1 answer + /2 explanation)</h3>
+<p class="trap">Most common TRAPS: Throughput without avg/peak · Auth=Authz · MVC=style · One view suffices · Conceptual=source · Pub-sub=OO · Every NFR in every view</p>
+
+<h3>Compiler Quick Note</h3>
+<p><b>Modern:</b> HYBRID (Repository + Pipeline). Symbol Table + AST = central repo. Execution = sequential pipeline.</p>
+</div>
+
+</div><!-- end cols2 -->
+</div><!-- end page 1 -->
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- SIDE 2: Q2 DESIGN EXERCISE (Styles, Diagrams, RefArch, Strategy) -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<div class="page">
+<h1>CISC 322 QUIZ 1 — CHEAT SHEET ★ SIDE 2: DESIGN EXERCISE (Q2 = 50 marks: NFRs 5 + Styles 10 + Seq 15 + Boxes 20)</h1>
+
+<!-- Q2 QUICK START -->
+<div class="box-green" style="padding:2px; margin-bottom:2px;">
+<b style="font-size:6.5pt;">✓ Q2 COMPONENTS (always 5-7):</b>
+<span style="font-size:5.8pt;">(1) Client/UI · (2) Request Handler · (3) Business Logic/Engine · (4) Data Store/Repository · (5) External Interface · (6-7) domain-specific (Transformer, Printer, Compiler, etc.)</span>
+</div>
+
+<div class="cols2">
+
+<!-- ─── ARCHITECTURAL STYLES (OPTIMIZED) ─── -->
+<div class="break-inside-avoid">
+<h2>J. ARCHITECTURAL STYLES — Q2 REFERENCE</h2>
+<table>
+<tr><th style="width:11%">Style</th><th style="width:13%">Components</th><th style="width:11%">Connectors</th><th style="width:22%">Pros (when to use)</th><th style="width:20%">Cons (when NOT)</th><th style="width:23%">Examples + Key Facts</th></tr>
+<tr>
+<td><b>Repository</b></td>
+<td>Central store + operators</td>
+<td>Proc calls, mem access</td>
+<td>Efficient large data; centralized backup/security; many ops on shared data</td>
+<td>Must agree on schema first; hard to distribute; evolution expensive</td>
+<td>IDEs, compilers, graphical editors. <b>Blackboard</b> = collab variant</td>
+</tr>
+<tr>
+<td><b>Pipe & Filter</b></td>
+<td>Filters (transforms)</td>
+<td>Pipes (streams)</td>
+<td>Easy compose/reuse; concurrent exec; throughput analysis</td>
+<td>Bad for <b>interactive</b>; excess parse overhead</td>
+<td>Unix shell, video. <b>Filters DON'T share state, DON'T know neighbors</b></td>
+</tr>
+<tr>
+<td><b>Object-Oriented</b></td>
+<td>Objects (data+ops)</td>
+<td>Method calls</td>
+<td>Hidden representation; modular</td>
+<td><b>MUST know target identity</b>; side effects if shared</td>
+<td>OOP systems. <b>Opposite of Pub-Sub</b> (identity req'd)</td>
+</tr>
+<tr>
+<td><b>Pub-Sub</b></td>
+<td>Publishers + subscribers</td>
+<td>Event bus</td>
+<td>Strong reuse (register for events); easy evolution; <b>no identity needed</b></td>
+<td>No idea who responds; <b>can't rely on order</b>; don't know when done</td>
+<td>GUI events, plugins, DB triggers. Often mixed with proc calls</td>
+</tr>
+<tr>
+<td><b>Layered</b></td>
+<td>Layer groups</td>
+<td>Proc calls (restricted)</td>
+<td>Abstraction levels; changes affect ≤2 layers; interchangeable impls</td>
+<td>Not all fit layers; perf may need skip layers</td>
+<td>OSI, OS, web 3-tier. Exception: can skip for efficiency</td>
+</tr>
+<tr>
+<td><b>Client-Server</b></td>
+<td>Clients + Servers</td>
+<td>Network</td>
+<td>Data distribution; transparent location; mix platforms</td>
+<td>Network dependent; tricky design; need registry for discovery</td>
+<td>Web, email, DB. <b>Combine with Layered</b> for web apps</td>
+</tr>
+<tr>
+<td><b>Peer-to-Peer</b></td>
+<td>Peers (both)</td>
+<td>Direct network</td>
+<td>No single failure point; resilient; scalable; privacy</td>
+<td>Cliques disconnect; need peer list/directory; no guaranteed response</td>
+<td>BitTorrent, blockchain. <b>Transient, ad hoc connections</b></td>
+</tr>
+</table>
+
+<div class="box-red">
+<b>KEY DISTINCTIONS:</b> Pub-Sub ≠ OO (identity) · P&F: filters independent, no shared state · MVC = pattern NOT style · Blackboard = collaborative Repository · Layered can skip for perf · Batch Seq = degenerate P&F (ALL in before ANY out)
+</div>
+</div>
+
+<!-- ─── REFERENCE ARCHITECTURES (CONDENSED) ─── -->
+<div class="break-inside-avoid">
+<h2>K. REFERENCE ARCHITECTURES (Exam Essentials)</h2>
+<p><b>Ref. Arch</b> = template for systems in a domain. Benefits: proven designs, common vocabulary, reuse</p>
+
+<h3>Web Server (7 subsystems, 2 layers)</h3>
+<p><b>Server Layer:</b> Reception (parse HTTP) · Request Analysis (URL→file) · Access Control (auth/authz) · Resource Handler (static vs dynamic) · Transaction Log<br>
+<b>Support Layer:</b> Utility · OSAL (OS portability)</p>
+
+<h3>Linux Kernel (5 subsystems)</h3>
+<p><b>SCHED</b> (most central, all depend on it) · <b>MM</b> (virtual memory) · <b>VFS</b> (Façade pattern, file interface) · <b>NET</b> (BSD sockets) · <b>IPC</b> (signals, pipes, shared mem)</p>
+
+<h3>Conceptual ≠ Concrete (Linux: 19 vs 37 dependencies)</h3>
+<p><b>Why mismatch:</b> (1) Missing relations (undocumented) (2) Efficiency bypasses (3) Dev expediency (code in wrong place) (4) Far more concrete deps</p>
+</div>
+
+<!-- ─── DESIGN EXERCISE STRATEGY ─── -->
+<div class="break-inside-avoid">
+<h2>L. DESIGN EXERCISE — STEP-BY-STEP (50 marks)</h2>
+
+<h3>Q2.1 — Two NFRs (5 marks) — 2.5 each: /1 answer + /1.5 concrete explanation</h3>
+<div class="box-green">
+<b>Formula:</b> Identify what's SPECIAL about system → match NFR → write SPECIFIC + MEASURABLE + WHY for THIS system.<br>
+<b>Winners:</b> Response Time, Scalability, Throughput, Availability, Security, Portability, Accuracy, Integration.<br>
+❌ "Be fast" → ✅ "Response time &lt;200ms for code completion because interactive IDE usage" (from W2023 rubric)
+</div>
+
+<h3>Q2.2 — Pick 2 Styles (10 marks) — per style: /2 mention + /3 CONCRETE explanation (NOT generic!)</h3>
+<div class="box-green">
+<b>Winning combos:</b> <b>C/S + Layered</b> (web apps) · <b>C/S + Repository</b> (IDEs, clangd) · <b>P&amp;F + Repository</b> (compilers, media)<br>
+<b>MUST</b> explain HOW each style addresses YOUR NFRs for THIS system. Don't just define — say WHY it fits + cite course examples.<br>
+<span class="trap">W2023 rubric: "not just generic definition of C/S but concrete motivation" = /3 for explanation</span>
+</div>
+
+<h3>Q2.3 — Sequence Diagram (15 marks, ~15 min)</h3>
+<table class="mini-table">
+<tr><th>Grading</th><th>What — EXACT RUBRIC</th></tr>
+<tr><td><b>/3</b></td><td>Valid seq. diagram: /1 vertical elements exist, /1 arrows between them, /1 visually makes sense to read</td></tr>
+<tr><td><b>/6</b></td><td>Right components (/1 each) — aim for 6: e.g. RequestHandler, Engine, Index, Repository, Transformer, Printer</td></tr>
+<tr><td><b>/6</b></td><td>Correct flows (/1 each) — 6 key steps in the use case matching micro-steps to components</td></tr>
+</table>
+<div class="box">
+<b>Process:</b> (1) Break use case into 6 micro-steps → (2) Assign each to a component → (3) Actor LEFT → (4) Step-by-step arrows → (5) <b>alt</b> for success/failure → (6) <b>loop</b> for repetition → (7) Return to actor.<br>
+<b>Arrows:</b> ──▶ = sync call (filled head, solid). ──> = async (open head). ◁── = return (dashed).
+</div>
+
+<h3>Q2.4 — Boxes-and-Arrows (20 marks, ~15 min)</h3>
+<table class="mini-table">
+<tr><th>Grading</th><th>What — EXACT RUBRIC</th></tr>
+<tr><td><b>/7</b></td><td>Same boxes as seq. diagram + GUI/client (-1 per missing component)</td></tr>
+<tr><td><b>/7</b></td><td>Arrows for each call in seq. diagram (-1 per missing); if A calls B in seq → A→B in boxes</td></tr>
+<tr><td><b>/6</b></td><td>Style mapping: /3 if style 1 clearly indicated in terms of components, /3 if style 2 clearly indicated</td></tr>
+</table>
+<div class="box-red">
+<b>RULES:</b> Arrows = <b>UNI-DIRECTIONAL ONLY</b> (A→B, NEVER A↔B!) · Label each box with purpose · Visually GROUP by style (dashed boundary for C/S, central DB for repository) · Include client as separate box OUTSIDE system
+</div>
+<p style="font-size:5.8pt;"><b>Generic Components (5-7):</b> (1) Client/UI (2) Request Handler (3) Business Logic/Engine (4) Data Store/Repository (5) External Interface (6-7) domain-specific</p>
+</div>
+
+<!-- ─── PAST EXAM DESIGN EXERCISES ─── -->
+<div class="break-inside-avoid">
+<h2>M. PAST EXAM DESIGN EXERCISES — PATTERNS</h2>
+<table class="mini-table">
+<tr><th>Year</th><th>System</th><th>NFRs</th><th>Styles</th><th>Components</th></tr>
+<tr><td>F2018</td><td>Web Grocer</td><td>Resp. time, scalability</td><td>C/S + Layered</td><td>UI, Controller, Order Mgr, Inventory, Payment, DB</td></tr>
+<tr><td>W2021</td><td>Video Editor</td><td>Resp. time, throughput</td><td>P&amp;F + Repository</td><td>UI, Effect Mgr, Preview, Video Repo, Render Pipeline, Codec</td></tr>
+<tr><td>W2023</td><td>clangd (LSP)</td><td>Resp. time, throughput, accuracy</td><td>C/S + Repository</td><td>Req. Handler, Refactor Engine, AST Index, AST Repo, AST Transformer, Pretty Printer</td></tr>
+</table>
+</div>
+
+<!-- ─── SEQUENCE DIAGRAM VISUAL TEMPLATE ─── -->
+<div class="break-inside-avoid">
+<h2>N. SEQUENCE DIAGRAM — VISUAL TEMPLATE (copy this structure!) ★ 15 MARKS</h2>
+<div style="border:1.5px solid #1a237e; border-radius:3px; padding:3px; background:#f8f9ff; font-family:Consolas,monospace; font-size:5.6pt; line-height:1.25; white-space:pre; overflow:hidden;">
+<span style="color:#b71c1c;font-weight:700;">Actor</span>    <span style="color:#1a237e;font-weight:700;">ReqHandler</span>  <span style="color:#1a237e;font-weight:700;">Engine</span>     <span style="color:#1a237e;font-weight:700;">Repository</span>  <span style="color:#1a237e;font-weight:700;">Transformer</span>  <span style="color:#1a237e;font-weight:700;">Printer</span>    ← <span style="color:#b71c1c;">/6 components (/1 each)</span>
+  ┃          ┃           ┃           ┃            ┃           ┃     ← lifelines (/1)
+  ┃──<span style="color:#0d47a1;">request</span>→┃           ┃           ┃            ┃           ┃     ← arrows (/1)
+  ┃          ┃──<span style="color:#0d47a1;">find</span>────→┃           ┃            ┃           ┃
+  ┃          ┃           ┃──<span style="color:#0d47a1;">lookup</span>──→┃            ┃           ┃
+  ┃          ┃           ┃◁─<span style="color:#616161;">data</span>────┃            ┃           ┃     ← dashed return
+  ┃          ┃           ┃     ┌─────<span style="color:#e65100;">loop</span>─[for each match]──┐     ┃
+  ┃          ┃           ┃──<span style="color:#0d47a1;">xform</span>──→┃──<span style="color:#0d47a1;">rename</span>──→┃           ┃     ← /6 flows (/1 each)
+  ┃          ┃           ┃     └────────────────────────┘     ┃
+  ┃          ┃           ┃──<span style="color:#0d47a1;">format</span>──────────────────────────→┃
+  ┃          ┃◁─<span style="color:#616161;">result</span>──┃           ┃            ┃           ┃
+  ┃◁─<span style="color:#616161;">response</span>┃           ┃           ┃            ┃           ┃     ← readable (/1)
+</div>
+<table class="mini-table" style="margin-top:1px;">
+<tr><td style="width:20%;"><b>──▶ solid</b> = sync call</td><td style="width:20%;"><b>◁── dashed</b> = return</td><td style="width:20%;"><b>alt</b> = if/else</td><td style="width:20%;"><b>loop</b> = repeat</td><td style="width:20%;"><b>Actor</b> = OUTSIDE system</td></tr>
+</table>
+</div>
+
+<!-- ─── BOXES-AND-ARROWS VISUAL TEMPLATE ─── -->
+<div class="break-inside-avoid">
+<h2>O. BOXES-AND-ARROWS — VISUAL TEMPLATE (copy this layout!) ★ 20 MARKS</h2>
+<div style="border:1.5px solid #1a237e; border-radius:3px; padding:3px; background:#f8f9ff; font-size:5.5pt; line-height:1.2;">
+<div style="display:flex; gap:3px; align-items:flex-start;">
+
+<!-- Client side -->
+<div style="border:2px solid #b71c1c; border-radius:2px; padding:2px; text-align:center; min-width:45px; background:#ffebee;">
+<b style="color:#b71c1c; font-size:5.8pt;">👤 Client</b><br><span style="font-size:5pt;">(IDE/Browser)</span><br><span style="color:#b71c1c;">EXTERNAL</span>
+</div>
+
+<div style="display:flex; align-items:center; font-size:7pt; color:#1a237e;">→</div>
+
+<!-- Server boundary -->
+<div style="border:2px dashed #1565c0; border-radius:3px; padding:2px; flex:1; background:#e3f2fd;">
+<div style="text-align:center; font-size:5pt; color:#1565c0; font-weight:700; margin-bottom:1px;">── STYLE 1: CLIENT-SERVER (server boundary) ── (/3 for style 1)</div>
+
+<div style="display:flex; gap:2px; align-items:flex-start;">
+<!-- Non-repository components -->
+<div style="display:flex; flex-direction:column; gap:2px; min-width:50px;">
+<div style="border:1.5px solid #1a237e; border-radius:2px; padding:1px 2px; text-align:center; background:#e8eaf6;">
+<b style="font-size:5.5pt;">ReqHandler</b><br><span style="font-size:4.8pt;">receives requests</span>
+</div>
+<div style="text-align:center; font-size:6pt; color:#1a237e;">↓</div>
+<div style="border:1.5px solid #1a237e; border-radius:2px; padding:1px 2px; text-align:center; background:#e8eaf6;">
+<b style="font-size:5.5pt;">Engine</b><br><span style="font-size:4.8pt;">core logic</span>
+</div>
+<div style="text-align:center; font-size:6pt; color:#1a237e;">↓</div>
+<div style="border:1.5px solid #1a237e; border-radius:2px; padding:1px 2px; text-align:center; background:#e8eaf6;">
+<b style="font-size:5.5pt;">Printer</b><br><span style="font-size:4.8pt;">output format</span>
+</div>
+</div>
+
+<div style="display:flex; align-items:center; font-size:6pt; color:#1a237e; padding:0 1px;">→<br>←</div>
+
+<!-- Repository boundary -->
+<div style="border:2px solid #e65100; border-radius:3px; padding:2px; flex:1; background:#fff3e0;">
+<div style="text-align:center; font-size:5pt; color:#e65100; font-weight:700; margin-bottom:1px;">── STYLE 2: REPOSITORY ── (/3 for style 2)</div>
+<div style="border:1.5px solid #e65100; border-radius:2px; padding:1px 2px; text-align:center; background:#ffe0b2; margin-bottom:2px;">
+<b style="font-size:5.8pt; color:#e65100;">★ Central Data Store</b><br><span style="font-size:4.8pt;">(AST/DB/Model)</span>
+</div>
+<div style="display:flex; gap:2px;">
+<div style="border:1px solid #e65100; border-radius:2px; padding:1px; text-align:center; flex:1; background:#fff8e1; font-size:5pt;">
+<b>Index</b><br>search
+</div>
+<div style="border:1px solid #e65100; border-radius:2px; padding:1px; text-align:center; flex:1; background:#fff8e1; font-size:5pt;">
+<b>Xformer</b><br>modify
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<p style="font-size:5.5pt; margin-top:1px;">
+<b style="color:#b71c1c;">ARROWS:</b> UNI-directional ONLY (→ never ↔) · Every A→B call in seq diagram = arrow in this diagram · <b>/7</b> for all boxes present · <b>/7</b> for all arrows present
+</p>
+</div>
+
+<!-- ─── CRITICAL EXAM TRAPS & FORMULAS ─── -->
+<div class="break-inside-avoid">
+<h2>P. CRITICAL EXAM TRAPS & MUST-REMEMBER</h2>
+
+<div class="box-red" style="padding:2px 3px;">
+<b>🔥 TOP 10 EXAM TRAPS:</b>
+<p style="margin:0.5px 0; font-size:5.8pt;">
+1. Throughput WITHOUT avg/peak = INCOMPLETE<br>
+2. Pub-Sub: components DON'T know identities ≠ OO (MUST know identity)<br>
+3. MVC = design pattern NOT architectural style<br>
+4. 3 layers 1 tier = TRUE (logical≠physical)<br>
+5. Authentication ≠ Authorization (different NFRs)<br>
+6. Conceptual ≠ source code (conceptual = docs)<br>
+7. Need ALL 3 views (Func+Info+Concur) not just 1<br>
+8. Bi-directional arrows → WRONG (use A→B only)<br>
+9. Lawn Care: Repo=NO (overkill), Pub-Sub=NO (CRUD not event-driven)<br>
+10. nginx C++ classes = FALSE (written in C, conceptual names only)
+</p>
+</div>
+
+<div class="box-green" style="padding:2px 3px; margin-top:2px;">
+<b>✓ EXAM DAY CHECKLIST:</b>
+<p style="margin:0.5px 0; font-size:5.8pt;">
+□ Seq: Actor LEFT + OUTSIDE? Arrows labeled? alt/loop used? Dashed returns?<br>
+□ Boxes: All seq components present? Arrows UNI-directional? Styles visually grouped?<br>
+□ NFRs: SPECIFIC numbers? Tied to scenario? WHY for THIS system?<br>
+□ T/F: Stated TRUE/FALSE clearly + 2+ sentence explanation?<br>
+□ Styles: Connected to YOUR system's NFRs, not generic definitions?
+</p>
+</div>
+
+<div class="box" style="padding:2px 3px; margin-top:2px;">
+<b>STYLE QUICK MATCH:</b>
+<p style="margin:0.5px 0; font-size:5.8pt;">
+Web app CRUD → C/S + Layered · IDE/complex data → C/S + Repository<br>
+Data pipeline → Pipe & Filter · Events/plugins → Pub-Sub<br>
+Compiler → Repository + Pipeline (hybrid) · P2P file share → Peer-to-Peer<br>
+<span class="red">Simple CRUD ≠ Repository (overkill!)</span> · Regular on-demand ≠ Pub-Sub (event-driven only)
+</p>
+</div>
+
+<p style="font-size:5.6pt; margin-top:1px;">
+<b>Key Facts:</b> Ref arch = domain template · P&F filters DON'T share state · Blackboard = collaborative Repository · Layered can skip layers for performance · Scale Out > Scale Up for massive loads · Perspectives crosscut views
+</p>
+</div>
+
+</div><!-- end cols2 -->
+</div><!-- end page 2 -->
+
+</body>
+</html>

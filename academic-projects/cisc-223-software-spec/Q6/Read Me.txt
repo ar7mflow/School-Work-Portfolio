@@ -1,0 +1,217 @@
+Power Function Implementation (x^n)
+CISC/CMPE 223 - Problem 6
+
+Author: Some sleep-deprived CS student, jk Arham Hassan | 20426387
+Date: Probably 2am  
+Language: Python (because life's too short for manual memory management)
+
+
+
+
+
+What This Does:
+
+This program computes power(x, n) = x^n where:
+- x = any number 
+- n = non-negative integer 
+
+I actually give you two implementations for the price of one, special offer only 4 u my friend!!
+1. Iterative 
+2. Recursive (elegant af, but watch out for big n)
+
+Both come with:
+✅ Pre/Post-Conditions 
+✅ Assertions (Loop Invariant for iterative, induction for recursive)
+✅ Tests 
+
+
+-------------------------------------------------------------------------------------
+
+
+How to Run:
+
+Option 1: Just Run It
+bash
+python power.py
+
+
+This will:
+- Run all the tests automatically
+- Show you that both versions work
+- Print a demo calculation
+
+Expected output:
+
+==================================================
+  POWER(x, n) IMPLEMENTATION - CISC223 Problem 6
+==================================================
+
+ Running tests...
+
+✓ Test 1 passed: power(2, 3) = 8
+✓ Test 2 passed: power(5, 0) = 1
+... (more tests)
+🎉 All tests passed! Code is solid.
+
+ Comparing iterative vs recursive...
+✓ power(2, 3): iterative=8, recursive=8 (match!)
+... (more comparisons)
+Both versions produce identical results!
+
+==================================================
+Demo: Try it yourself!
+==================================================
+
+power(3, 4) = 81
+Verification: 3^4 = 81 (using Python's  operator)
+Match: True
+
+
+Option 2: Use It in Your Own Code
+python
+from power import power
+
+result = power(2, 8)
+print(f"2^8 = {result}")  # Output: 2^8 = 256
+
+
+Option 3: Interactive Python Shell
+bash
+python -i power.py
+
+Then in the shell:
+python
+>>> power(10, 3)
+1000
+>>> power(2, 0)
+1
+>>> power(-3, 3)
+-27
+
+
+
+-------------------------------------------------------------------------------------
+
+
+Input Format:
+
+The function takes two arguments:
+python
+power(x, n)
+
+
+- x: The base (any number: int, float, positive, negative, zero, whatever)
+- n: The exponent (MUST be a non-negative integer: 0, 1, 2, 3, ...)
+
+Valid examples:
+python
+power(2, 5)      # 2^5 = 32
+power(10, 0)     # 10^0 = 1
+power(-2, 3)     # (-2)^3 = -8
+power(1.5, 2)    # 1.5^2 = 2.25
+power(0, 0)      # 0^0 = 1 (by convention)
+
+
+Invalid examples (will throw an error):
+python
+power(2, -1)     #  n < 0
+power(2, 3.5)    #  n is not an integer
+power("two", 3)  #  x is not a number 
+
+
+
+-------------------------------------------------------------------------------------
+
+
+
+Pre and Post Conditions:
+
+Pre-Condition :
+
+P: (n >= 0) AND (n is an integer) AND (x is a number)
+
+Translation: "Don't pass in negative exponents or weird stuff, and n better be a whole number."
+
+Post-Condition:
+
+Q: return_value == x^n
+
+Translation: "You get x multiplied by itself n times. If n=0, you get 1 (because x^0 = 1 for any x)."
+
+
+
+-------------------------------------------------------------------------------------
+
+
+
+Recursive Version, uses induction:
+
+Base case: power(x, 0) = 1 ✓ (directly returned)
+
+Inductive step: 
+- Assume power(x, k) = x^k for all k < n (the "trust me bro" part)
+- Then power(x, n) = x * power(x, n-1) = x * x^(n-1) = x^n ✓
+
+By induction, it works for all n >= 0. Math is magic. 
+
+
+
+-------------------------------------------------------------------------------------
+
+
+ Edge Cases We Handle
+
+| Case          | Input                   | Output | Notes
+
+| Zero exponent | power(x, 0)             | 1    | x^0 = 1 for any x (even x=0) 
+| Zero base     | power(0, n) where n>0   | 0    | 0 * 0 * ... = 0 
+| Zero-zero     | power(0, 0)             | 1    | By convention (mathematicians still argue about this) 
+| Negative base | power(-2, 3)            | -8   | Handles signs correctly 
+| Exponent = 1  | power(x, 1)             | x    | x^1 = x 
+| Float base    | power(2.5, 2)           | 6.25 | Works with floats too 
+
+
+
+-------------------------------------------------------------------------------------
+
+
+
+ Assumptions
+
+- n is an integer: We assert this. If you pass 3.5, you'll get an error (as you should).
+- n >= 0: No negative exponents. 
+- x is numeric: Passing a string or list will probably crash during multiplication (Python will yell at you, not me).
+- No overflow protection: As we know if we compute power(10, 1000), Python will handle it (big integers!), but in C/Java you'd overflow.
+
+
+
+-------------------------------------------------------------------------------------
+
+
+
+ Known Limitations
+
+- Stack overflow for large n (recursive version): If n > ~1000, might hit Python's recursion limit. Use the iterative version for safety.
+- Float precision: If x is a float and n is large, rounding errors accumulate.
+- Doesn't handle complex numbers: If x is complex, multiplication still works in Python, but I honestly didn't explicitly test it.
+
+
+
+-------------------------------------------------------------------------------------
+
+
+
+Why Two Versions?
+
+Iterative:
+- ✅ Safe for large n (no stack overflow)
+- ✅ Faster in practice (no function call overhead)
+- ✅ Easier to reason about with Loop Invariant
+
+Recursive:
+- ✅ Elegant (directly mirrors mathematical definition)
+- ✅ Great for teaching induction
+- ✅ Shorter code (but at what cost?)
+
+The default power() uses iterative because we're responsible adults (mostly).
+
