@@ -49,12 +49,6 @@ Path: academic-projects/cisc-360-ai-reasoning/
 Highlights:
 - Python logic/data-structure utility script
 
-### CISC 365 - Algorithms
-Coverage note:
-- I reviewed this folder in detail.
-- The current contents are mostly quiz and tutorial solution materials plus lecture/course files.
-- To keep this public repo policy-safe, those were not included in this version.
-
 ### EMPR 270 - Organizational Behaviour
 Path: academic-projects/empr-270-organizational-behaviour/
 
