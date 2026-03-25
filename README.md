@@ -49,6 +49,12 @@ Path: academic-projects/cisc-360-ai-reasoning/
 Highlights:
 - Python logic/data-structure utility script
 
+### CISC 365 - Algorithms
+Coverage note:
+- I reviewed this folder in detail.
+- The current contents are mostly quiz and tutorial solution materials plus lecture/course files.
+- To keep this public repo policy-safe, those were not included in this version.
+
 ### EMPR 270 - Organizational Behaviour
 Path: academic-projects/empr-270-organizational-behaviour/
 
@@ -68,6 +74,22 @@ Path: external-projects/sap-btp-halluci-not/
 Highlights:
 - Halluci-NOT technical documentation from SAP BTP project work
 - Included as additional proof of applied enterprise AI workflow context
+
+## External Coding Projects
+
+### Compliance Drift Detector
+Path: external-projects/compliance-drift-detector/
+
+Highlights:
+- Python checker/generator pipeline for response safety validation
+- Structured test cases for hallucination, PII leak, and policy-violation scenarios
+
+### Internship Tools
+Path: external-projects/internship-tools/
+
+Highlights:
+- Job filtering and document conversion scripts
+- Config-driven tooling for application workflow automation
 
 ## Career Assets
 

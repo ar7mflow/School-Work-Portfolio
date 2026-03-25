@@ -1,0 +1,4 @@
+source,job_id,title,company,location,url,deadline,duration_months,gpa_requirement,transcript_required,description
+linkedin,,AI Engineer Intern,Example AI Inc,"Toronto, ON, Canada",https://www.linkedin.com/jobs/view/example,2026-03-12,16,,,Build ML pipelines in Python and PyTorch. Experience with SQL, cloud, and monitoring preferred.
+greenhouse,12345,Software Engineering Intern,Example Co,"Calgary, AB, Canada",https://boards.greenhouse.io/example/jobs/12345,2026-03-10,12,,,Build backend APIs and internal tooling. AI exposure is a plus.
+manual,,Data + AI Engineer Co-op,Example Health,"Remote, Canada",https://example.com/jobs/ai-coop,2026-03-08,4,,yes,Spring/Summer co-op role for healthcare analytics and LLM experimentation.
