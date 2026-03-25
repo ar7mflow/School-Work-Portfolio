@@ -1,12 +1,12 @@
 # School Work Portfolio
 
-This repository is a curated snapshot of my technical coursework and related build artifacts at Queen's University.
+This repository is a curated, public-safe snapshot of my technical coursework and related build artifacts at Queen's University.
 
-The goal is simple: show concrete proof of what I can build, debug, and document across software architecture, AI, algorithms, and systems.
+The goal is simple: show concrete proof of what I can build, debug, and document across software architecture, AI, and systems work without posting sensitive assignment answer sets.
 
 ## What This Repo Contains
 
-- Course assignment code and technical writeups from 200- and 300-level computing courses
+- Sanitized course code samples and technical writeups from 200- and 300-level computing courses
 - Architecture and design documentation from team and individual project work
 - AI coursework implementations (CSP, heuristics, propagators, assignment tooling)
 - Utility scripts I wrote to automate extraction and analysis workflows
@@ -18,22 +18,14 @@ The goal is simple: show concrete proof of what I can build, debug, and document
 Path: academic-projects/cisc-221-computer-systems/
 
 Highlights:
-- C programming assignments and machine-level work
-- Digital logic and memory-related assignment deliverables
-- Bomb/attack-lab style solution artifacts
+- C programming and low-level implementation samples
+- Core systems-oriented coding artifacts
 
 ### CISC 223 - Software Specification
 Path: academic-projects/cisc-223-software-spec/
 
 Highlights:
-- Python implementations from assignment questions
-- Readme notes and supporting theory document
-
-### CISC 235 - Data Structures and Algorithms
-Path: academic-projects/cisc-235-data-structures/
-
-Highlights:
-- Assignment implementation with outputs and summary report
+- Python implementation samples and supporting notes
 
 ### CISC 322 - Software Architecture
 Path: academic-projects/cisc-322-software-architecture/
@@ -55,20 +47,7 @@ Highlights:
 Path: academic-projects/cisc-360-ai-reasoning/
 
 Highlights:
-- Reasoning assignment output and exam solution summary
 - Python logic/data-structure utility script
-
-### CISC 365 - Algorithms
-Path: academic-projects/cisc-365-algorithms/
-
-Highlights:
-- Quiz solution notebook and supporting course prompt notes
-
-### Attack Lab
-Path: academic-projects/attack-lab/
-
-Highlights:
-- Exploit answer files demonstrating low-level debugging and binary reasoning
 
 ### EMPR 270 - Organizational Behaviour
 Path: academic-projects/empr-270-organizational-behaviour/
@@ -98,6 +77,11 @@ Highlights:
 ## Curation Notes
 
 This portfolio intentionally prioritizes my authored work and implementation artifacts.
+
+Verification run policy for this public version:
+- removed direct answer sets, exploit payloads, and exam or quiz solution files
+- removed artifacts explicitly labeled as assignment answers or walkthrough keys
+- retained implementation-focused code, architecture work, and tooling scripts
 
 Items typically excluded from public portfolio use:
 - course lecture decks and textbooks
