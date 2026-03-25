@@ -83,6 +83,13 @@ Path: tooling-and-automation/
 
 Collection of scripts written to process PDFs, run OCR-related extraction, and transform course materials into text or structured outputs.
 
+## External Project Artifact
+Path: external-projects/sap-btp-halluci-not/
+
+Highlights:
+- Halluci-NOT technical documentation from SAP BTP project work
+- Included as additional proof of applied enterprise AI workflow context
+
 ## Career Assets
 
 - Resume: career-assets/resume/
